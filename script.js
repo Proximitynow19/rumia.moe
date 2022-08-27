@@ -28,6 +28,11 @@ const index = Math.round(Math.random() * (wallpapers.length - 1));
 
 $(".hero").css("background-image", `url('wallpapers/${wallpapers[index]}')`);
 
+$("#attribution").attr(
+  "href",
+  `https://wall.alphacoders.com/big.php?i=${wallpapers[index].split(/\./g)[0]}`
+);
+
 setTimeout(() => {
   window.location = "https://japanesegobl.in/";
 }, 30000);
