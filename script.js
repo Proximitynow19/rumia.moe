@@ -27,3 +27,7 @@ const wallpapers = [
 const index = Math.round(Math.random() * (wallpapers.length - 1));
 
 $(".hero").css("background-image", `url('wallpapers/${wallpapers[index]}')`);
+
+setTimeout(() => {
+  window.location = "https://japanesegobl.in/";
+}, 30000);
