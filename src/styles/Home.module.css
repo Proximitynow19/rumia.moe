@@ -1,0 +1,62 @@
+.main {
+  width: min(800px, 85vw);
+
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+
+  padding: min(64px, 5vw);
+}
+
+.main > *:not(:last-child) {
+  margin-bottom: 64px;
+}
+
+.heroBackground {
+  position: relative;
+
+  left: 50%;
+
+  width: 90vw;
+  height: 512px;
+
+  background: radial-gradient(
+      50% 50% at 50% 50%,
+      rgba(0, 0, 0, 0.2) 0%,
+      #000000 100%
+    ),
+    url(../../public/20230205_205910.jpg);
+
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+
+  transform: translate(-50%, -64px);
+
+  margin-bottom: -128px !important;
+
+  z-index: -1;
+}
+
+.centerItems {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.centerItems > *:not(:last-child) {
+  margin-right: 16px;
+}
+
+.socialList > *:not(:last-child) {
+  margin-right: 16px;
+}
+
+.activity {
+  display: flex;
+  flex-direction: column;
+}
+
+.activity:not(:last-child) {
+  margin-bottom: 16px;
+}
