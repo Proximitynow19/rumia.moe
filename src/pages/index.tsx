@@ -167,11 +167,11 @@ function Home({
             </div>
           </div>
         </div>
-        {lanyard.activities.length > 0 ? (
+        {lanyard.activities.filter((k: any) => k.type !== 4).length > 0 ? (
           <div>
             <h1>Activity</h1>
             <ul>
-              {lanyard.activities.map((k: any, i: number) => (
+              {lanyard.activities.filter((k: any) => k.type !== 4).map((k: any, i: number) => (
                 <li key={i}>
                   <strong>
                     {ActivityTypes[k.type]} {k.name}
