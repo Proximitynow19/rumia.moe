@@ -122,22 +122,39 @@ function Home({
     <>
       <Head>
         <title>Jakob de Guzman</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
+
+        {/* Primary Meta Tags */}
+        <title>Jakob de Guzman</title>
+        <meta name="title" content="Jakob de Guzman" />
         <meta
           name="description"
           content="Hi, I'm Jakob, a Student and a Programmer from New Zealand."
         />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
 
-        <meta name={"og:title"} content={"Jakob de Guzman"} />
-        <meta name={"og:type"} content={"profile"} />
-        <meta name={"og:image"} content={"/removed.png"} />
-        <meta name={"og:url"} content={"https://rumia.moe/"} />
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://rumia.moe/" />
+        <meta property="og:title" content="Jakob de Guzman" />
+        <meta
+          property="og:description"
+          content="Hi, I'm Jakob, a Student and a Programmer from New Zealand."
+        />
+        <meta property="og:image" content="/removed.png" />
 
-        <meta name={"og:profile:first_name"} content={"Jakob"} />
-        <meta name={"og:profile:last_name"} content={"de Guzman"} />
-        <meta name={"og:profile:username"} content={"Proximitynow"} />
-        <meta name={"og:profile:gender"} content={"male"} />
+        {/* Twitter */}
+        {/* <meta property="twitter:card" content="summary_large_image" /> */}
+        <meta property="twitter:url" content="https://rumia.moe/" />
+        <meta property="twitter:title" content="Jakob de Guzman" />
+        <meta
+          property="twitter:description"
+          content="Hi, I'm Jakob, a Student and a Programmer from New Zealand."
+        />
+        <meta property="twitter:image" content="/removed.png" />
+
+        {/* Other */}
+        <meta property="theme-color" content="#C2A4C9" />
       </Head>
 
       <main className={styles.main}>
@@ -171,18 +188,20 @@ function Home({
           <div>
             <h1>Activity</h1>
             <ul>
-              {lanyard.activities.filter((k: any) => k.type !== 4).map((k: any, i: number) => (
-                <li key={i}>
-                  <strong>
-                    {ActivityTypes[k.type]} {k.name}
-                  </strong>
-                  <div>
-                    {k.details}
-                    <br />
-                    {k.state}
-                  </div>
-                </li>
-              ))}
+              {lanyard.activities
+                .filter((k: any) => k.type !== 4)
+                .map((k: any, i: number) => (
+                  <li key={i}>
+                    <strong>
+                      {ActivityTypes[k.type]} {k.name}
+                    </strong>
+                    <div>
+                      {k.details}
+                      <br />
+                      {k.state}
+                    </div>
+                  </li>
+                ))}
             </ul>
           </div>
         ) : (
