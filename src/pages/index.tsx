@@ -1,87 +1,94 @@
 import Head from "next/head";
-import axios from "axios";
-import { motion } from "framer-motion";
-import { Nothing_You_Could_Do } from "@next/font/google";
+import Box from "@/components/Box";
 import styles from "@/styles/Home.module.css";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { duotoneDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
-import stringify from "json-stringify-pretty-compact";
-import moment from "moment";
-import momentTz from "moment-timezone";
-import { useEffect, useState } from "react";
+import {
+  FaReact,
+  FaFigma,
+  FaCloudflare,
+  FaLinux,
+  FaHtml5,
+  FaCss3Alt,
+  FaJsSquare,
+  FaPython,
+  FaStrava,
+  FaGithub,
+  FaEnvelope,
+  FaDiscord,
+  FaLinkedin,
+} from "react-icons/fa";
+import { SiOsu, SiMyanimelist } from "react-icons/si";
+import { ReactNode, useEffect, useState } from "react";
 
-const nothing_you_could_do = Nothing_You_Could_Do({
-  subsets: ["latin"],
-  weight: "400",
-});
+import moment from "moment-timezone";
 
-type Quote = {
-  _id: string;
-  // The quotation text
-  content: string;
-  // The full name of the author
-  author: string;
-  // The `slug` of the quote author
-  authorSlug: string;
-  // The length of quote (number of characters)
-  length: number;
-  // An array of tag names for this quote
-  tags: string[];
+import axios from "axios";
+
+const socials: Record<string, { icon: ReactNode; href: string }> = {
+  "osu!": { icon: <SiOsu />, href: "https://osu.ppy.sh/users/13706100" },
+  MyAnimeList: {
+    icon: <SiMyanimelist />,
+    href: "https://myanimelist.net/profile/Proximitynow",
+  },
+  Strava: {
+    icon: <FaStrava />,
+    href: "https://www.strava.com/athletes/108114192",
+  },
+  GitHub: { icon: <FaGithub />, href: "https://github.com/Proximitynow19" },
 };
 
-type Lanyard = {
-  active_on_discord_mobile: boolean;
-  active_on_discord_desktop: boolean;
-  listening_to_spotify: boolean;
-  // Lanyard KV
-  kv: Map<string, string>;
-  // Below is a custom crafted "spotify" object, which will be null if listening_to_spotify is false
-  spotify: {
-    track_id: string;
-    timestamps: {
-      start: number;
-      end: number;
-    };
-    song: string;
-    artist: string;
-    album_art_url: string;
-    album: string;
-  };
-  discord_user: {
-    username: string;
-    public_flags: number;
-    id: string;
-    discriminator: string;
-    avatar: string;
-  };
-  discord_status: "online" | "idle" | "dnd" | "offline";
-  // activities contains the plain Discord activities array that gets sent down with presences
-  activities: Map<string, any>[];
+const skills: Record<string, ReactNode> = {
+  React: <FaReact />,
+  Figma: <FaFigma />,
+  Cloudflare: <FaCloudflare />,
+  Linux: <FaLinux />,
+  HTML: <FaHtml5 />,
+  CSS: <FaCss3Alt />,
+  JavaScript: <FaJsSquare />,
+  Python: <FaPython />,
 };
 
-const getAge = () => moment().diff("2006-04-09", "years", true);
-const getTime = () =>
-  momentTz.tz("Pacific/Auckland").format("dddd, MMMM Do YYYY, h:mm:ss a");
+const contacts: Record<string, { icon: ReactNode; href: string }> = {
+  Email: { icon: <FaEnvelope />, href: "mailto:jakob@rumia.moe" },
+  Discord: {
+    icon: <FaDiscord />,
+    href: "https://discord.com/users/445035187370328066",
+  },
+  LinkedIn: {
+    icon: <FaLinkedin />,
+    href: "https://www.linkedin.com/in/jakob-d/",
+  },
+};
+
+const user_id = "445035187370328066";
+
+const ActivityTypes: { [key: number]: string } = {
+  0: "Playing",
+  1: "Streaming",
+  2: "Listening to",
+  3: "Watching",
+  4: "",
+  5: "Competing in",
+};
 
 function Home({
-  quote,
-  initProps,
+  projects,
+  reactive,
 }: {
-  quote: Quote;
-  initProps: { age: number; lanyard: Lanyard; time: string };
+  projects: { name: string; description: string }[];
+  reactive: { time: string; lanyard: any };
 }) {
-  const [age, setAge] = useState(initProps.age);
-  const [time, setTime] = useState(initProps.time);
+  const [time, setTime] = useState(reactive.time);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setAge(getAge());
-      setTime(getTime());
+      setTime(
+        moment().tz("Pacific/Auckland").format("dddd, MMMM Do YYYY, h:mm:ss a")
+      );
     }, 1000);
     return () => clearInterval(interval);
   }, []);
 
-  const [lanyard, setLanyard] = useState(initProps.lanyard);
+  const [lanyard, setLanyard] = useState(reactive.lanyard);
 
   useEffect(() => {
     const ws = new WebSocket("wss://api.lanyard.rest/socket");
@@ -94,7 +101,7 @@ function Home({
           ws.send(
             JSON.stringify({
               op: 2,
-              d: { subscribe_to_id: "445035187370328066" },
+              d: { subscribe_to_id: user_id },
             })
           );
 
@@ -120,63 +127,129 @@ function Home({
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <motion.div
-        className={styles.quote_box}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: [0, 1, 1, 0] }}
-        transition={{ duration: 6.2, times: [0, 1 / 6.2, 6 / 6.2, 1] }}
-      >
-        <figure className={nothing_you_could_do.className}>
-          <blockquote cite={`https://api.quotable.io/quotes/${quote._id}`}>
-            {quote.content}
-          </blockquote>{" "}
-          <figcaption>{quote.author}</figcaption>
-        </figure>
-      </motion.div>
-
-      <motion.main
-        className={styles.main}
-        initial={{ opacity: 0, display: "none" }}
-        animate={{ opacity: 1, display: "block" }}
-        transition={{ delay: 6, duration: 0.2 }}
-      >
-        <SyntaxHighlighter language="javascript" style={duotoneDark}>
-          {stringify({
-            quote,
-            me: {
-              firstName: "Jakob",
-              lastName: "de Guzman",
-              aliases: ["Proximitynow"],
-              age,
-              location: { country: "New Zealand", city: "Auckland", time },
-              hobbies: ["Programming", "Chess", "Anime", "Gym"],
-            },
-            skills: ["React", "Node.JS", "Figma"],
-            contact: {
-              email: "jakob@rumia.moe",
-              discord: "https://discord.com/users/445035187370328066",
-              linkedIn: "https://www.linkedin.com/in/jakob-d/",
-            },
-            github: "https://github.com/Proximitynow19",
-            projects: [],
-            discord: lanyard,
-            path: "https://rumia.moe/",
-          })}
-        </SyntaxHighlighter>
-      </motion.main>
+      <main className={styles.main}>
+        <div className={styles.hero}>
+          <div
+            className={styles.background}
+            style={{ backgroundImage: `url(/takapuna.jpg)` }}
+          />
+          <div className={styles.greeting}>
+            <h1>Hey, I'm Jakob</h1>
+            <span>
+              <h2>🇳🇿 Auckland, New Zealand</h2>
+            </span>
+            <div>{time}</div>
+            <div className={styles.layout}>
+              {Object.keys(socials).map((k, i) => (
+                <Box title={k} key={i}>
+                  <a href={socials[k].href} target={"_blank"}>
+                    {socials[k].icon}
+                  </a>
+                </Box>
+              ))}
+            </div>
+          </div>
+        </div>
+        {lanyard.activities.length > 0 ? (
+          <div>
+            <h1>Activity</h1>
+            <ul>
+              {lanyard.activities.map((k: any, i: number) => (
+                <li key={i}>
+                  <strong>
+                    {ActivityTypes[k.type]} {k.name}
+                  </strong>
+                  <div>
+                    {k.details}
+                    <br />
+                    {k.state}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : (
+          <></>
+        )}
+        <div>
+          <h1>Introduction</h1>
+          <p>
+            I am a full-stack developer based in Auckland, New Zealand. Although
+            I have proficiency in both frontend and backend development, I tend
+            to prefer working on backend projects. I am currently a student at
+            Rangitoto College, where I am pursuing my passion for coding. In my
+            free time, I enjoy watching anime and spending time at the gym to
+            improve my physical programming.
+          </p>
+        </div>
+        <div>
+          <h1>Skills</h1>
+          <p>
+            I am a highly skilled individual with a diverse range of technical
+            abilities. The following is a list of some of the key areas in which
+            I excel:
+          </p>
+          <div className={styles.layout}>
+            {Object.keys(skills).map((k, i) => (
+              <Box size={2} spacing={2} title={k} key={i}>
+                {skills[k]}
+              </Box>
+            ))}
+          </div>
+        </div>
+        <div>
+          <h1>Projects</h1>
+          <div className={styles.layout}>
+            {projects.map((k, i) => (
+              <Box size={8} roundness={1 / 4} spacing={4} key={i}>
+                <h1 className={styles.projectTitle}>{k.name}</h1>
+                <p>{k.description}</p>
+              </Box>
+            ))}
+          </div>
+        </div>
+        <div>
+          <h1>Contact</h1>
+          <div className={styles.layout}>
+            {Object.keys(contacts).map((k, i) => (
+              <Box size={8} roundness={1 / 4} spacing={12} title={k} key={i}>
+                <a href={contacts[k].href} target={"_blank"}>
+                  {contacts[k].icon}
+                </a>
+              </Box>
+            ))}
+          </div>
+        </div>
+      </main>
     </>
   );
 }
 
 Home.getInitialProps = async () => {
   return {
-    quote: (await axios("https://api.quotable.io/random?tags=technology")).data,
-    initProps: {
-      age: getAge(),
+    projects: [
+      {
+        name: "rumia.moe",
+        description:
+          "A simple Next.JS-based website to showcase some of my projects and skills.",
+      },
+      {
+        name: "tetr.js",
+        description: "A npm module to interact with the TETR.IO API.",
+      },
+      {
+        name: "RangiHub",
+        description:
+          "Made for students at Rangitoto College to access their timetables and attendance.",
+      },
+    ],
+    reactive: {
+      time: moment()
+        .tz("Pacific/Auckland")
+        .format("dddd, MMMM Do YYYY, h:mm:ss a"),
       lanyard: (
         await axios("https://api.lanyard.rest/v1/users/445035187370328066")
       ).data.data,
-      time: getTime(),
     },
   };
 };
