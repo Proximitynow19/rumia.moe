@@ -134,7 +134,7 @@ function Home({
             style={{ backgroundImage: `url(/takapuna.jpg)` }}
           />
           <div className={styles.greeting}>
-            <h1>Hey, I'm Jakob</h1>
+            <h1>Hey, I&apos;m Jakob</h1>
             <span>
               <h2>🇳🇿 Auckland, New Zealand</h2>
             </span>
@@ -142,7 +142,11 @@ function Home({
             <div className={styles.layout}>
               {Object.keys(socials).map((k, i) => (
                 <Box title={k} key={i}>
-                  <a href={socials[k].href} target={"_blank"}>
+                  <a
+                    href={socials[k].href}
+                    target={"_blank"}
+                    rel={"noreferrer"}
+                  >
                     {socials[k].icon}
                   </a>
                 </Box>
@@ -213,7 +217,7 @@ function Home({
           <div className={styles.layout}>
             {Object.keys(contacts).map((k, i) => (
               <Box size={8} roundness={1 / 4} spacing={12} title={k} key={i}>
-                <a href={contacts[k].href} target={"_blank"}>
+                <a href={contacts[k].href} target={"_blank"} rel={"noreferrer"}>
                   {contacts[k].icon}
                 </a>
               </Box>
