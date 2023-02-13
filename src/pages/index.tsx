@@ -122,9 +122,22 @@ function Home({
     <>
       <Head>
         <title>Jakob de Guzman</title>
-        <meta name="description" content="hello :)" />
+        <meta
+          name="description"
+          content="Hi, I'm Jakob, a Student and a Programmer from New Zealand."
+        />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
+
+        <meta name={"og:title"} content={"Jakob de Guzman"} />
+        <meta name={"og:type"} content={"profile"} />
+        <meta name={"og:image"} content={"/removed.png"} />
+        <meta name={"og:url"} content={"https://rumia.moe/"} />
+
+        <meta name={"og:profile:first_name"} content={"Jakob"} />
+        <meta name={"og:profile:last_name"} content={"de Guzman"} />
+        <meta name={"og:profile:username"} content={"Proximitynow"} />
+        <meta name={"og:profile:gender"} content={"male"} />
       </Head>
 
       <main className={styles.main}>
