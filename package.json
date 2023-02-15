@@ -2,6 +2,8 @@
   "name": "rumia.moe",
   "version": "1.0.0",
   "workspaces": [
-    "ui"
+    "ui",
+    "api",
+    "url"
   ]
 }
