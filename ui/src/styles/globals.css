@@ -40,8 +40,8 @@ hr {
 
 section {
   opacity: 0.8;
-  margin-left: 64px;
-  margin-right: 64px;
+  margin-left: min(64px, 5vw);
+  margin-right: min(64px, 5vw);
 }
 
 section > *:not(:last-child) {
