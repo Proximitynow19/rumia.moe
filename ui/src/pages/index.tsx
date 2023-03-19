@@ -134,7 +134,7 @@ export default function Home() {
       <main className={styles.main}>
         <div className={styles.heroBackground}></div>
 
-        <header>
+        <header className={styles.header}>
           <div className={styles.centerItems}>
             <h1>Jakob</h1>
             <h3>@Proximitynow19</h3>
