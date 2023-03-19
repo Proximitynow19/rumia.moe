@@ -8,7 +8,7 @@ import {
   FaEnvelope,
   FaDiscord,
   FaGithub,
-  FaLinkedin,
+  FaLinkedinIn,
   FaInstagram,
   FaTwitter,
   FaSteam,
@@ -25,7 +25,7 @@ const socials = {
   },
   GitHub: { icon: <FaGithub />, uri: "https://github.com/Proximitynow19" },
   LinkedIn: {
-    icon: <FaLinkedin />,
+    icon: <FaLinkedinIn />,
     uri: "https://www.linkedin.com/in/jakob-d",
     contact: true,
   },
