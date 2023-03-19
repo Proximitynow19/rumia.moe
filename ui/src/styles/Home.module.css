@@ -1,11 +1,11 @@
 .main {
-  width: min(800px, 90vw);
+  width: min(800px, 85vw);
 
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
 
-  padding: 64px;
+  padding: min(64px, 5vw);
 }
 
 .main > *:not(:last-child) {
