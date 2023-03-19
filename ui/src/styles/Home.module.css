@@ -1,68 +1,54 @@
 .main {
+  width: 100vw;
+  max-width: 800px;
+
   position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+
+  padding: 64px;
+}
+
+.main > *:not(:last-child) {
+  margin-bottom: 64px;
+}
+
+.heroBackground {
+  position: relative;
 
   left: 50%;
 
-  transform: translateX(-50%);
+  width: 100vw;
+  height: 512px;
 
-  max-width: 800px;
-}
+  background: radial-gradient(
+      50% 50% at 50% 50%,
+      rgba(0, 0, 0, 0.2) 0%,
+      #000000 100%
+    ),
+    url(../../public/20230205_205910.jpg);
 
-.h1 {
-  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-}
-
-.main *:not(.ignore-margin) {
-  margin-bottom: 24px;
-}
-
-.main *:last-child {
-  margin-bottom: 0;
-}
-
-.hero {
-  position: relative;
-
-  height: 66vh;
-}
-
-.background {
+  background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
 
-  filter: brightness(0.5);
+  transform: translate(-50%, -64px);
 
-  position: absolute;
+  margin-bottom: -128px !important;
 
-  top: 0;
-  left: calc(-50vw + 400px);
-
-  width: 100vw;
-  height: 100%;
-
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  z-index: -1;
 }
 
-.greeting {
-  position: absolute;
-
-  top: 50%;
-  left: 50%;
-
-  transform: translate(-50%, -50%);
-
-  text-align: center;
-}
-
-.layout {
+.centerItems {
   display: flex;
-  flex-direction: row;
-
-  max-width: 800px;
-
-  justify-content: space-between;
+  justify-content: flex-start;
+  align-items: center;
 }
 
-.projectTitle {
-  height: auto;
+.centerItems > *:not(:last-child) {
+  margin-right: 16px;
+}
+
+.socialList > *:not(:last-child) {
+  margin-right: 16px;
 }

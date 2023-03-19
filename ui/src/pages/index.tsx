@@ -1,119 +1,92 @@
+import { useEffect, useState } from "react";
+
 import Head from "next/head";
-import Box from "@/components/Box";
 import styles from "@/styles/Home.module.css";
 import {
-  FaReact,
-  FaFigma,
-  FaCloudflare,
-  FaLinux,
-  FaHtml5,
-  FaCss3Alt,
-  FaJsSquare,
-  FaPython,
-  FaStrava,
-  FaGithub,
   FaEnvelope,
   FaDiscord,
+  FaGithub,
   FaLinkedin,
+  FaInstagramSquare,
+  FaTwitter,
+  FaSteam,
+  FaStrava,
 } from "react-icons/fa";
-import { SiOsu, SiMyanimelist } from "react-icons/si";
-import { ReactNode, useEffect, useState } from "react";
+import { SiOsu } from "react-icons/si";
 
-import moment from "moment-timezone";
-
-import axios from "axios";
-
-const socials: Record<string, { icon: ReactNode; href: string }> = {
-  "osu!": { icon: <SiOsu />, href: "https://osu.ppy.sh/users/13706100" },
-  MyAnimeList: {
-    icon: <SiMyanimelist />,
-    href: "https://myanimelist.net/profile/Proximitynow",
+const socials = {
+  Email: { icon: <FaEnvelope />, uri: "mailto:jakob@rumia.moe", contact: true },
+  Discord: {
+    icon: <FaDiscord />,
+    uri: "https://discord.com/users/445035187370328066",
+    contact: true,
+  },
+  GitHub: { icon: <FaGithub />, uri: "https://github.com/Proximitynow19" },
+  LinkedIn: {
+    icon: <FaLinkedin />,
+    uri: "https://www.linkedin.com/in/jakob-d",
+    contact: true,
+  },
+  Instagram: {
+    icon: <FaInstagramSquare />,
+    uri: "https://www.instagram.com/jakob.deguzman/",
+  },
+  Twitter: { icon: <FaTwitter />, uri: "https://twitter.com/Proximitynow19" },
+  "osu!": { icon: <SiOsu />, uri: "https://osu.ppy.sh/users/13706100" },
+  Steam: {
+    icon: <FaSteam />,
+    uri: "https://steamcommunity.com/id/Proximitynow19",
   },
   Strava: {
     icon: <FaStrava />,
-    href: "https://www.strava.com/athletes/108114192",
-  },
-  GitHub: { icon: <FaGithub />, href: "https://github.com/Proximitynow19" },
-};
-
-const skills: Record<string, ReactNode> = {
-  React: <FaReact />,
-  Figma: <FaFigma />,
-  Cloudflare: <FaCloudflare />,
-  Linux: <FaLinux />,
-  HTML: <FaHtml5 />,
-  CSS: <FaCss3Alt />,
-  JavaScript: <FaJsSquare />,
-  Python: <FaPython />,
-};
-
-const contacts: Record<string, { icon: ReactNode; href: string }> = {
-  Email: { icon: <FaEnvelope />, href: "mailto:jakob@rumia.moe" },
-  Discord: {
-    icon: <FaDiscord />,
-    href: "https://discord.com/users/445035187370328066",
-  },
-  LinkedIn: {
-    icon: <FaLinkedin />,
-    href: "https://www.linkedin.com/in/jakob-d/",
+    uri: "https://www.strava.com/athletes/108114192",
   },
 };
 
-const user_id = "445035187370328066";
-
-const ActivityTypes: { [key: number]: string } = {
-  0: "Playing",
-  1: "Streaming",
-  2: "Listening to",
-  3: "Watching",
-  4: "",
-  5: "Competing in",
-};
-
-function Home({
-  projects,
-  reactive,
-}: {
-  projects: { name: string; description: string }[];
-  reactive: { time: string; lanyard: any };
-}) {
-  const [time, setTime] = useState(reactive.time);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTime(
-        moment().tz("Pacific/Auckland").format("dddd, MMMM Do YYYY, h:mm:ss a")
-      );
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const [lanyard, setLanyard] = useState(reactive.lanyard);
+export default function Home() {
+  const [activity, setActivity] = useState<any>();
 
   useEffect(() => {
     const ws = new WebSocket("wss://api.lanyard.rest/socket");
 
-    ws.onmessage = (message) => {
-      const data = JSON.parse(message.data);
+    ws.onmessage = (e) => {
+      const data = JSON.parse(e.data);
 
       switch (data.op) {
         case 1:
           ws.send(
             JSON.stringify({
               op: 2,
-              d: { subscribe_to_id: user_id },
+              d: { subscribe_to_id: "445035187370328066" },
             })
           );
 
           setInterval(() => {
             ws.send(JSON.stringify({ op: 3 }));
           }, data.heartbeat_interval);
-
           break;
         case 0:
-          setLanyard(data.d);
+          let activity = data.d.activities.find((k: any) => k.type != 4);
 
-          break;
+          switch (activity?.type) {
+            case 0:
+              activity.type = "Playing";
+              break;
+            case 1:
+              activity.type = "Streaming";
+              break;
+            case 2:
+              activity.type = "Listening to";
+              break;
+            case 3:
+              activity.type = "Watching";
+              break;
+            case 5:
+              activity.type = "Competing in";
+              break;
+          }
+
+          setActivity(activity);
       }
     };
   }, []);
@@ -156,138 +129,86 @@ function Home({
         {/* Other */}
         <meta property="theme-color" content="#C2A4C9" />
       </Head>
-
       <main className={styles.main}>
-        <div className={styles.hero}>
-          <div
-            className={styles.background}
-            style={{ backgroundImage: `url(/takapuna.jpg)` }}
-          />
-          <div className={styles.greeting}>
-            <h1>Hey, I&apos;m Jakob</h1>
-            <span>
-              <h2>🇳🇿 Auckland, New Zealand</h2>
+        <div className={styles.heroBackground}></div>
+
+        <header>
+          <div className={styles.centerItems}>
+            <h1>Jakob</h1>
+            <h3>@Proximitynow19</h3>
+          </div>
+          {activity ? (
+            <span
+              title={[activity.details, activity.state]
+                .filter((k) => k)
+                .join(" | ")}
+            >
+              {activity.type} {activity.name}
             </span>
-            <div>{time}</div>
-            <div className={styles.layout}>
-              {Object.keys(socials).map((k, i) => (
-                <Box title={k} key={i}>
-                  <a
-                    href={socials[k].href}
-                    target={"_blank"}
-                    rel={"noreferrer"}
-                  >
-                    {socials[k].icon}
-                  </a>
-                </Box>
-              ))}
-            </div>
-          </div>
-        </div>
-        {lanyard.activities.filter((k: any) => k.type !== 4).length > 0 ? (
-          <div>
-            <h1>Activity</h1>
-            <ul>
-              {lanyard.activities
-                .filter((k: any) => k.type !== 4)
-                .map((k: any, i: number) => (
-                  <li key={i}>
-                    <strong>
-                      {ActivityTypes[k.type]} {k.name}
-                    </strong>
-                    <div>
-                      {k.details}
-                      <br />
-                      {k.state}
-                    </div>
-                  </li>
-                ))}
-            </ul>
-          </div>
-        ) : (
-          <></>
-        )}
-        <div>
-          <h1>Introduction</h1>
-          <p>
-            I am a full-stack developer based in Auckland, New Zealand. Although
-            I have proficiency in both frontend and backend development, I tend
-            to prefer working on backend projects. I am currently a student at
-            Rangitoto College, where I am pursuing my passion for coding. In my
-            free time, I enjoy watching anime and spending time at the gym to
-            improve my physical programming.
-          </p>
-        </div>
-        <div>
-          <h1>Skills</h1>
-          <p>
-            I am a highly skilled individual with a diverse range of technical
-            abilities. The following is a list of some of the key areas in which
-            I excel:
-          </p>
-          <div className={styles.layout}>
-            {Object.keys(skills).map((k, i) => (
-              <Box size={2} spacing={2} title={k} key={i}>
-                {skills[k]}
-              </Box>
-            ))}
-          </div>
-        </div>
-        <div>
-          <h1>Projects</h1>
-          <div className={styles.layout}>
-            {projects.map((k, i) => (
-              <Box size={8} roundness={1 / 4} spacing={4} key={i}>
-                <h1 className={styles.projectTitle}>{k.name}</h1>
-                <p>{k.description}</p>
-              </Box>
-            ))}
-          </div>
-        </div>
-        <div>
-          <h1>Contact</h1>
-          <div className={styles.layout}>
-            {Object.keys(contacts).map((k, i) => (
-              <Box size={8} roundness={1 / 4} spacing={12} title={k} key={i}>
-                <a href={contacts[k].href} target={"_blank"} rel={"noreferrer"}>
-                  {contacts[k].icon}
+          ) : (
+            <></>
+          )}
+          <hr />
+          <div className={styles.socialList}>
+            {Object.entries(socials).map(([key, value], i) => {
+              return (
+                <a href={value.uri} target={"_blank"} title={key} key={i}>
+                  {value.icon}
                 </a>
-              </Box>
-            ))}
+              );
+            })}
           </div>
-        </div>
+        </header>
+
+        <section>
+          <h2>About Me</h2>
+          <hr />
+          <p>
+            As a full-stack developer, I possess a diverse skill set that
+            enables me to handle different aspects of software development. My
+            experience in both frontend and backend development allows me to
+            design and build applications that are not only functional but also
+            visually appealing. I enjoy the challenge of creating software that
+            is both user-friendly and efficient. Throughout my journey as a
+            developer, I have developed proficiency in various programming
+            languages, including Python, and JavaScript. I also have experience
+            working with databases such as MongoDB.
+          </p>
+          <br />
+          <p>
+            Currently, I am a student at Rangitoto College, where I am pursuing
+            my passion for coding. The college has provided me with a platform
+            to hone my coding skills and learn about the latest technologies in
+            the industry. In addition to the coursework, I also participate in
+            coding competitions, hackathons, and coding clubs, which have
+            further improved my coding abilities. When I am not coding, I enjoy
+            watching anime and spending time at the gym. I believe that physical
+            exercise helps me to stay healthy and focused, which ultimately
+            translates to better productivity in my coding projects. Overall, I
+            am a driven and passionate full-stack developer who is always eager
+            to learn new things and take on new challenges.
+          </p>
+        </section>
+        <section>
+          <h2>Projects</h2>
+          <hr />
+          I'm still working out my portfolio, however, you may check my GitHub
+          profile posted at the top of the page.
+        </section>
+        <section>
+          <h2>Contact</h2>
+          <hr />
+          <p>
+            You may reach out to me via any of the methods listed at the top of
+            the page, however, Email and Discord are preferred.
+          </p>
+        </section>
+        <section>
+          <h2>Cristian</h2>
+          <hr />
+          <img src={"2044_000143_dhdgfnzfgt.jpg"} alt={"Cristian running"} />
+        </section>
       </main>
     </>
   );
 }
-
-Home.getInitialProps = async () => {
-  return {
-    projects: [
-      {
-        name: "rumia.moe",
-        description:
-          "A simple Next.JS-based website to showcase some of my projects and skills.",
-      },
-      {
-        name: "tetr.js",
-        description: "A npm module to interact with the TETR.IO API.",
-      },
-      {
-        name: "RangiHub",
-        description:
-          "Made for students at Rangitoto College to access their timetables and attendance.",
-      },
-    ],
-    reactive: {
-      time: moment()
-        .tz("Pacific/Auckland")
-        .format("dddd, MMMM Do YYYY, h:mm:ss a"),
-      lanyard: (
-        await axios("https://api.lanyard.rest/v1/users/445035187370328066")
-      ).data.data,
-    },
-  };
-};
-
-export default Home;
