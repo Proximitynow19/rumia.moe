@@ -9,7 +9,7 @@ import {
   FaDiscord,
   FaGithub,
   FaLinkedin,
-  FaInstagramSquare,
+  FaInstagram,
   FaTwitter,
   FaSteam,
   FaStrava,
@@ -30,7 +30,7 @@ const socials = {
     contact: true,
   },
   Instagram: {
-    icon: <FaInstagramSquare />,
+    icon: <FaInstagram />,
     uri: "https://www.instagram.com/jakob.deguzman/",
   },
   Twitter: { icon: <FaTwitter />, uri: "https://twitter.com/Proximitynow19" },
