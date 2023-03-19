@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 
+import Image from "next/image";
 import Head from "next/head";
+
 import styles from "@/styles/Home.module.css";
 import {
   FaEnvelope,
@@ -192,8 +194,8 @@ export default function Home() {
         <section>
           <h2>Projects</h2>
           <hr />
-          I'm still working out my portfolio, however, you may check my GitHub
-          profile posted at the top of the page.
+          I&apos;m still working out my portfolio, however, you may check my
+          GitHub profile posted at the top of the page.
         </section>
         <section>
           <h2>Contact</h2>
@@ -206,7 +208,19 @@ export default function Home() {
         <section>
           <h2>Cristian</h2>
           <hr />
-          <img src={"2044_000143_dhdgfnzfgt.jpg"} alt={"Cristian running"} />
+          <div
+            style={{
+              position: "relative",
+              width: "100%",
+              aspectRatio: 2784 / 1858,
+            }}
+          >
+            <Image
+              src={"/2044_000143_dhdgfnzfgt.jpg"}
+              fill={true}
+              alt={"Cristian running"}
+            />
+          </div>
         </section>
       </main>
     </>
