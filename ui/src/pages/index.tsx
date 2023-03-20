@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Head from "next/head";
 
+import { motion } from "framer-motion";
+
 import styles from "@/styles/Home.module.css";
 import {
   FaEnvelope,
@@ -46,7 +48,7 @@ const socials = {
 };
 
 export default function Home() {
-  const [activity, setActivity] = useState<any>();
+  const [activity, setActivity] = useState<any[]>([]);
 
   useEffect(() => {
     const ws = new WebSocket("wss://api.lanyard.rest/socket");
@@ -68,27 +70,31 @@ export default function Home() {
           }, data.heartbeat_interval);
           break;
         case 0:
-          let activity = data.d.activities.find((k: any) => k.type != 4);
+          let activities = data.d.activities.filter((k: any) => k.type != 4);
 
-          switch (activity?.type) {
-            case 0:
-              activity.type = "Playing";
-              break;
-            case 1:
-              activity.type = "Streaming";
-              break;
-            case 2:
-              activity.type = "Listening to";
-              break;
-            case 3:
-              activity.type = "Watching";
-              break;
-            case 5:
-              activity.type = "Competing in";
-              break;
+          for (let i = 0; i < activities.length; i++) {
+            let activity = activities[i];
+
+            switch (activity?.type) {
+              case 0:
+                activities[i].type = "Playing";
+                break;
+              case 1:
+                activities[i].type = "Streaming";
+                break;
+              case 2:
+                activities[i].type = "Listening to";
+                break;
+              case 3:
+                activities[i].type = "Watching";
+                break;
+              case 5:
+                activities[i].type = "Competing in";
+                break;
+            }
           }
 
-          setActivity(activity);
+          setActivity(activities);
       }
     };
   }, []);
@@ -132,24 +138,27 @@ export default function Home() {
         <meta property="theme-color" content="#C2A4C9" />
       </Head>
       <main className={styles.main}>
-        <div className={styles.heroBackground}></div>
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          className={styles.heroBackground}
+        />
 
-        <header>
+        <motion.header initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
           <div className={styles.centerItems}>
             <h1>Jakob</h1>
             <h3>@Proximitynow19</h3>
           </div>
-          {activity ? (
-            <span
-              title={[activity.details, activity.state]
-                .filter((k) => k)
-                .join(" | ")}
-            >
-              {activity.type} {activity.name}
-            </span>
-          ) : (
-            <></>
-          )}
+          <div>
+            {activity.map((a, i) => (
+              <div key={i} className={styles.activity}>
+                <span>
+                  {a.type} {a.name}
+                </span>
+                <span>{[a.details, a.state].filter((k) => k).join(" · ")}</span>
+              </div>
+            ))}
+          </div>
           <hr />
           <div className={styles.socialList}>
             {Object.entries(socials).map(([key, value], i) => {
@@ -160,9 +169,9 @@ export default function Home() {
               );
             })}
           </div>
-        </header>
+        </motion.header>
 
-        <section>
+        <motion.section initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
           <h2>About Me</h2>
           <hr />
           <p>
@@ -190,22 +199,22 @@ export default function Home() {
             am a driven and passionate full-stack developer who is always eager
             to learn new things and take on new challenges.
           </p>
-        </section>
-        <section>
+        </motion.section>
+        <motion.section initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
           <h2>Projects</h2>
           <hr />
           I&apos;m still working out my portfolio, however, you may check my
           GitHub profile posted at the top of the page.
-        </section>
-        <section>
+        </motion.section>
+        <motion.section initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
           <h2>Contact</h2>
           <hr />
           <p>
             You may reach out to me via any of the methods listed at the top of
             the page, however, Email and Discord are preferred.
           </p>
-        </section>
-        <section>
+        </motion.section>
+        <motion.section initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
           <h2>Cristian</h2>
           <hr />
           <div
@@ -221,7 +230,7 @@ export default function Home() {
               alt={"Cristian running"}
             />
           </div>
-        </section>
+        </motion.section>
       </main>
     </>
   );

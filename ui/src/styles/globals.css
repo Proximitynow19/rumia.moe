@@ -1,5 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Philosopher:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Reenie+Beanie&display=swap");
 
 * {
   margin: 0;
@@ -9,13 +9,13 @@
 body {
   background-color: black;
   color: white;
-  font-family: "Noto Sans", sans-serif;
+  font-family: "Philosopher", sans-serif;
 }
 
 h1,
 h2,
 h3 {
-  font-family: "Fredericka the Great", cursive;
+  font-family: "Reenie Beanie", cursive;
   display: inline-block;
 }
 

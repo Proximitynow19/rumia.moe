@@ -7,11 +7,17 @@
     "url": "git+https://github.com/Proximitynow19/rumia.moe.git"
   },
   "keywords": [],
-  "workspaces": ["ui","url"],
+  "workspaces": [
+    "ui",
+    "url"
+  ],
   "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Proximitynow19/rumia.moe/issues"
   },
-  "homepage": "https://rumia.moe/"
+  "homepage": "https://rumia.moe/",
+  "dependencies": {
+    "framer-motion": "^10.6.0"
+  }
 }

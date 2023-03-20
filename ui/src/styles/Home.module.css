@@ -51,3 +51,12 @@
 .socialList > *:not(:last-child) {
   margin-right: 16px;
 }
+
+.activity {
+  display: flex;
+  flex-direction: column;
+}
+
+.activity:not(:last-child) {
+  margin-bottom: 16px;
+}
