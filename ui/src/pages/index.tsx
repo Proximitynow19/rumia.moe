@@ -36,11 +36,11 @@ const socials = {
     uri: "https://www.instagram.com/jakob.deguzman/",
   },
   Twitter: { icon: <FaTwitter />, uri: "https://twitter.com/Proximitynow19" },
-  "osu!": { icon: <SiOsu />, uri: "https://osu.ppy.sh/users/13706100" },
-  Steam: {
-    icon: <FaSteam />,
-    uri: "https://steamcommunity.com/id/Proximitynow19",
-  },
+  // "osu!": { icon: <SiOsu />, uri: "https://osu.ppy.sh/users/13706100" },
+  // Steam: {
+  //   icon: <FaSteam />,
+  //   uri: "https://steamcommunity.com/id/Proximitynow19",
+  // },
   Strava: {
     icon: <FaStrava />,
     uri: "https://www.strava.com/athletes/108114192",
