@@ -36,11 +36,11 @@ const socials = {
     uri: "https://www.instagram.com/jakob.deguzman/",
   },
   Twitter: { icon: <FaTwitter />, uri: "https://twitter.com/Proximitynow19" },
-  // "osu!": { icon: <SiOsu />, uri: "https://osu.ppy.sh/users/13706100" },
-  // Steam: {
-  //   icon: <FaSteam />,
-  //   uri: "https://steamcommunity.com/id/Proximitynow19",
-  // },
+  "osu!": { icon: <SiOsu />, uri: "https://osu.ppy.sh/users/13706100" },
+  Steam: {
+    icon: <FaSteam />,
+    uri: "https://steamcommunity.com/id/Proximitynow19",
+  },
   Strava: {
     icon: <FaStrava />,
     uri: "https://www.strava.com/athletes/108114192",
@@ -213,23 +213,6 @@ export default function Home() {
             You may reach out to me via any of the methods listed at the top of
             the page, however, Email and Discord are preferred.
           </p>
-        </motion.section>
-        <motion.section initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
-          <h2>Cristian</h2>
-          <hr />
-          <div
-            style={{
-              position: "relative",
-              width: "100%",
-              aspectRatio: 2784 / 1858,
-            }}
-          >
-            <Image
-              src={"/2044_000143_dhdgfnzfgt.jpg"}
-              fill={true}
-              alt={"Cristian running"}
-            />
-          </div>
         </motion.section>
       </main>
     </>
