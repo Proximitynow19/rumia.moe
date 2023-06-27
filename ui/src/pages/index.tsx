@@ -147,7 +147,7 @@ export default function Home() {
         <motion.header initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
           <div className={styles.centerItems}>
             <h1>Jakob</h1>
-            <h3>@Proximitynow19</h3>
+            <h3>@proximitynow</h3>
           </div>
           <div>
             {activity.map((a, i) => (
