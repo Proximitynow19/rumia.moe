@@ -135,7 +135,7 @@ export default function Home() {
         <meta property="twitter:image" content="/removed.png" />
 
         {/* Other */}
-        <meta property="theme-color" content="#C2A4C9" />
+        <meta property="theme-color" content="#1C1F0F" />
       </Head>
       <main className={styles.main}>
         <motion.div
