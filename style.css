@@ -67,6 +67,8 @@ body {
   overflow: hidden;
   white-space: nowrap;
 
+  display: inline-block;
+
   text-overflow: ellipsis;
 }
 
