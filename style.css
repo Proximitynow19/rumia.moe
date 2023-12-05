@@ -98,3 +98,26 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+#socials {
+  margin-top: 15px;
+  font-size: xx-large;
+}
+
+#socials > * {
+  margin-left: 15px;
+  display: inline;
+  text-decoration: none;
+
+  opacity: 0.4;
+
+  transition: opacity 1s;
+}
+
+#socials > *:hover {
+  opacity: 0.8;
+}
+
+#socials > *:first-child {
+  margin-left: 0 !important;
+}
