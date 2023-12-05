@@ -50,3 +50,13 @@ function orig() {
   $("#notes").fadeOut();
   $("#main").fadeIn();
 }
+
+$(async () => {
+  const commit = (
+    await $.get(
+      "https://api.github.com/repos/Proximitynow19/rumia.moe/commits?per_page=1"
+    )
+  )[0];
+
+  $("#com-id").text(commit.sha.substring(0, 7));
+});

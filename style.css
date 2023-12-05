@@ -77,6 +77,14 @@ body {
   color: gray;
 }
 
+#com-id {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  color: gray;
+  text-decoration: none;
+}
+
 #notes {
   width: 100vw;
   height: 100vh;
