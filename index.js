@@ -35,8 +35,10 @@ $(document).click(() => {
 $(document).on("mousemove", (e) => {
   let mx = $(document).width();
   let my = $(document).height();
+
   let nx = mx / 2 + ((e.pageX * 2) / mx - 1) * mx * -0.01;
   let ny = my / 2 + ((e.pageY * 2) / my - 1) * my * -0.01;
+
   $("#background").css({ top: ny, left: nx });
 });
 
