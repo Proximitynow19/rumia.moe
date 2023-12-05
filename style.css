@@ -1,0 +1,88 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+
+* {
+  cursor: url("pointer.cur"), auto;
+
+  margin: 0;
+  padding: 0;
+
+  font-family: "Inter", sans-serif;
+
+  color: white;
+}
+
+body {
+  background-color: black;
+
+  overflow: hidden;
+}
+
+#background {
+  background-image: url(bg.png);
+
+  z-index: -999;
+
+  position: fixed;
+
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  opacity: 0.2;
+}
+
+#text {
+  position: absolute;
+
+  top: 50%;
+  left: 33%;
+
+  transform: translate(-100%, -50%);
+}
+
+#spotify {
+  position: absolute;
+
+  top: 50%;
+  right: 33%;
+
+  transform: translate(100%, -50%);
+}
+
+#spotify > * {
+  display: inline-block;
+}
+
+#spotify > div {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left: 25px;
+  max-width: 375px;
+}
+
+#spotify > div > * {
+  max-width: 375px;
+  overflow: hidden;
+  white-space: nowrap;
+
+  text-overflow: ellipsis;
+}
+
+#ack {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  color: gray;
+}
+
+#notes {
+  width: 100vw;
+  height: 100vh;
+}
+
+#notes > * {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jakob de Guzman</title>
+
+    <link rel="stylesheet" href="style.css" />
+
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="index.js"></script>
+  </head>
+  <body>
+    <video src="bg.mp4" loop autoplay muted id="background"></video>
+    <div id="main">
+      <div id="text">
+        <span>Hi, my name is</span>
+        <h1>Jakob</h1>
+        <span>Software Engineering Student</span>
+      </div>
+      <div id="spotify" style="display: none">
+        <img width="100px" />
+        <div>
+          <h1 id="s-title"></h1>
+          <span id="s-artist"></span>
+        </div>
+      </div>
+      <span id="ack" onclick="acks()">Acknowledgements</span>
+    </div>
+    <div id="notes" style="display: none" onclick="orig()">
+      <div>
+        Background video provided by
+        <a
+          target="_blank"
+          href="https://steamcommunity.com/sharedfiles/filedetails/?id=916781745"
+          >Sirhaian</a
+        >.
+      </div>
+    </div>
+  </body>
+</html>
