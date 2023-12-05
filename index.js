@@ -3,8 +3,6 @@ const socket = new WebSocket("wss://api.lanyard.rest/socket");
 socket.addEventListener("message", (event) => {
   let d = JSON.parse(event.data);
 
-  console.log(d);
-
   if (d.op == 1) {
     socket.send(
       JSON.stringify({
@@ -29,13 +27,6 @@ socket.addEventListener("message", (event) => {
     $("#spotify").fadeOut();
   }
 });
-
-function large_image(key) {
-  if (key.startsWith("spotify:"))
-    return "https://i.scdn.co/image/" + key.substring(8);
-
-  return key;
-}
 
 $(document).click(() => {
   $("#background").trigger("play");
