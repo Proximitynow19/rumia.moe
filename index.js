@@ -22,7 +22,7 @@ socket.addEventListener("message", (event) => {
     $("#spotify").fadeIn();
     $("#spotify > img").attr("src", d.spotify.album_art_url);
     $("#s-title").text(d.spotify.song);
-    $("#s-artist").text(d.spotify.artist);
+    $("#s-artist").text(d.spotify.artist.replace(/;/g, ","));
   } else {
     $("#spotify").fadeOut();
   }
