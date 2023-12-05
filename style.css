@@ -127,3 +127,13 @@ body {
 #socials > *:first-child {
   margin-left: 0 !important;
 }
+
+#blackout {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 999;
+  background-color: black;
+}
