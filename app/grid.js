@@ -1,5 +1,5 @@
 import styles from "./grid.module.css";
 
-export default function Grid({ children }) {
-  return <div>{children}</div>;
+export default function Grid({ children, cols }) {
+  return <div className={styles.grid}>{children}</div>;
 }

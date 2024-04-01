@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import styles from "./page.module.css";
 import Flex from "./flex";
 import Grid from "./grid";
+import Spotify from "./spotify";
 
 import { useLanyard } from "react-use-lanyard";
 
@@ -31,7 +32,7 @@ export default function Home() {
           <div>
             <pre>hero</pre>
           </div>
-          <Grid>
+          <Grid cols={2}>
             <div>
               <pre>social</pre>
             </div>
@@ -49,11 +50,17 @@ export default function Home() {
         <Flex>
           <Flex vertical={true}>
             <div>
-              <pre>activity</pre>
+              {!loading && status.spotify && (
+                <Spotify data={status.spotify}></Spotify>
+              )}
             </div>
             <Flex>
               <div>
-                <pre>{date.toTimeString()}</pre>
+                <pre>
+                  {date.toLocaleTimeString("en-NZ", {
+                    timeZone: "Pacific/Auckland",
+                  })}
+                </pre>
               </div>
               <div>
                 <pre>weather</pre>
@@ -67,7 +74,6 @@ export default function Home() {
         <div>
           <pre>Send message</pre>
         </div>
-        <pre>{!loading && JSON.stringify(status, null, 4)}</pre>
       </Flex>
     </main>
   );
