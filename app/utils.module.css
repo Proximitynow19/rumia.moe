@@ -1,0 +1,12 @@
+.container {
+  position: relative;
+  border-radius: 15px;
+
+  background-color: lightgrey;
+
+  overflow: hidden;
+}
+
+.background {
+  position: absolute;
+}

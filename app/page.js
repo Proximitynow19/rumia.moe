@@ -1,80 +1,74 @@
-"use client";
-
-import { useEffect, useState } from "react";
-
 import styles from "./page.module.css";
+
 import Flex from "./flex";
 import Grid from "./grid";
-import Spotify from "./spotify";
+import Hero from "./hero";
+import Social from "./social";
+import Lanyard from "./lanyard";
+import Clock from "./clock";
+import Weather from "./weather";
+import Highlight from "./highlight";
+import Contact from "./contact";
 
-import { useLanyard } from "react-use-lanyard";
+import { FaLinkedinIn, FaEnvelope, FaGithub, FaDiscord } from "react-icons/fa6";
 
 export default function Home() {
-  const { loading, status } = useLanyard({
-    userId: "445035187370328066",
-    socket: true,
-  });
-
-  const [date, setDate] = useState(new Date());
-
-  useEffect(() => {
-    const interval = setInterval(() => setDate(new Date(), 1000));
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, []);
-
   return (
-    <main className={styles.main}>
-      <Flex vertical={true}>
-        <Flex>
-          <div>
-            <pre>hero</pre>
-          </div>
-          <Grid cols={2}>
-            <div>
-              <pre>social</pre>
-            </div>
-            <div>
-              <pre>social</pre>
-            </div>
-            <div>
-              <pre>social</pre>
-            </div>
-            <div>
-              <pre>social</pre>
-            </div>
-          </Grid>
-        </Flex>
-        <Flex>
-          <Flex vertical={true}>
-            <div>
-              {!loading && status.spotify && (
-                <Spotify data={status.spotify}></Spotify>
-              )}
-            </div>
-            <Flex>
-              <div>
-                <pre>
-                  {date.toLocaleTimeString("en-NZ", {
-                    timeZone: "Pacific/Auckland",
-                  })}
-                </pre>
-              </div>
-              <div>
-                <pre>weather</pre>
-              </div>
-            </Flex>
+    <>
+      <div
+        className={styles.background}
+        style={{
+          width: "100vw",
+          height: "100vh",
+          backgroundImage: "url(/background.jpg)",
+          backgroundSize: "contain",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "top",
+        }}
+      />
+      <main className={styles.main}>
+        <Flex vertical={true}>
+          <Flex>
+            <Hero />
+            <Grid cols={2}>
+              {[
+                [
+                  <FaLinkedinIn />,
+                  "https://www.linkedin.com/in/jakob-d/",
+                  "LinkedIn",
+                  "#2D6988",
+                ],
+                [<FaEnvelope />, "mailto:jakob@rumia.moe", "Email", "#894343"],
+                [
+                  <FaGithub />,
+                  "https://github.com/Proximitynow19",
+                  "GitHub",
+                  "#6e5494",
+                ],
+                [
+                  <FaDiscord />,
+                  "https://discord.com/users/445035187370328066",
+                  "Discord",
+                  "#8187C9",
+                ],
+              ].map(([ic, l, n, c], i) => (
+                <Social icon={ic} link={l} name={n} color={c} key={i} />
+              ))}
+            </Grid>
           </Flex>
-          <div>
-            <pre>highlight</pre>
-          </div>
+          <Flex>
+            <Flex vertical={true}>
+              <Lanyard />
+              <Flex>
+                <Clock />
+                <Weather />
+              </Flex>
+            </Flex>
+            <Highlight />
+          </Flex>
+          <Contact />
         </Flex>
-        <div>
-          <pre>Send message</pre>
-        </div>
-      </Flex>
-    </main>
+      </main>
+    </>
   );
 }
