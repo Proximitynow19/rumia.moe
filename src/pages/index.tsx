@@ -34,7 +34,7 @@ const socials = {
     icon: <FaInstagram />,
     uri: "https://www.instagram.com/jakob.deguzman/",
   },
-  Twitter: { icon: <FaTwitter />, uri: "https://twitter.com/Proximitynow19" },
+  Twitter: { icon: <FaTwitter />, uri: "https://twitter.com/valeforgreen" },
   "osu!": { icon: <SiOsu />, uri: "https://osu.ppy.sh/users/13706100" },
   Steam: {
     icon: <FaSteam />,
